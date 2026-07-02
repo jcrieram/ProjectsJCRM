@@ -41,8 +41,6 @@
     #transcripcion.vacio { color: var(--gray); font-style: italic; }
     .destino-row { display: flex; gap: .5rem; align-items: center; margin-top: .65rem; flex-wrap: wrap; }
     .destino-row label { font-size: .78rem; color: var(--gray); white-space: nowrap; }
-    #campo-destino { flex: 1; min-width: 170px; border: 1px solid var(--border); border-radius: 6px; padding: .38rem .6rem; font-size: .83rem; background: white; }
-    #btn-aplicar { padding: .4rem .85rem; border-radius: 6px; border: none; background: var(--green); color: white; font-size: .83rem; font-weight: 700; cursor: pointer; }
 
     /* form */
     .form-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: 1.1rem; box-shadow: var(--shadow); }
@@ -103,22 +101,9 @@
       <span id="status-mic">Esperando…</span>
     </div>
     <div id="transcripcion" class="vacio">El texto dictado aparecerá aquí…</div>
-    <div class="destino-row">
-      <label>Aplicar al campo:</label>
-      <select id="campo-destino">
-        <option value="nombre">Nombre</option>
-        <option value="rut">RUT</option>
-        <option value="edad">Edad</option>
-        <option value="fecha">Fecha</option>
-        <option value="indicacion">Indicación / Diagnóstico</option>
-        <option value="uretra">Uretra anterior</option>
-        <option value="prostata">Uretra posterior / Próstata</option>
-        <option value="cuello">Cuello vesical</option>
-        <option value="vejiga">Vejiga</option>
-        <option value="diagnostico">Diagnóstico endoscópico</option>
-        <option value="conducta">Conducta / Sugerencia</option>
-      </select>
-      <button id="btn-aplicar">Aplicar ▶</button>
+    <div style="margin-top:.65rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:.55rem .9rem;font-size:.8rem;color:#1e40af;line-height:1.7;">
+      <strong>Modo manos libres:</strong> di el nombre del campo seguido del hallazgo.<br>
+      <em>"uretra sin alteración"</em> · <em>"vejiga mucosa sana"</em> · <em>"conducta HOLEP"</em> · <em>"diagnóstico vejiga de lucha"</em>
     </div>
   </div>
 
@@ -369,7 +354,7 @@ if(!SpeechRecognition){
     for(let i=e.resultIndex; i<e.results.length; i++){
       const t=e.results[i][0].transcript;
       if(e.results[i].isFinal){
-        const frase=(fraseActual+t).trim();
+        const frase=t.trim();
         fraseActual='';
         const det=detectarCampo(frase);
         if(det && det.contenido){
